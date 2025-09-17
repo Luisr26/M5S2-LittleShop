@@ -9,7 +9,7 @@ package com.codeup.littleshop.Services;
  * @author Coder
  */
 public abstract class AbstractProductService {
-    protected String nombre;
+    private String nombre;
     protected double precio;
     
     public AbstractProductService(String nombre, double precio){
@@ -21,13 +21,22 @@ public abstract class AbstractProductService {
     public abstract void getDescripcion();
 
     // Para acceder al Precio de manera si estamos por fuera de la clase
-    public String getNombre() {
-        return nombre;
-    }
-
     public double getPrecio() {
         return precio;
     }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+    
+    public String getNombre(){
+        return nombre;
+    }
+    
+    public void setNombre(String nombre){
+        this.nombre = nombre;
+    }
+   
     
 }
 

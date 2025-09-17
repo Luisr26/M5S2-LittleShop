@@ -15,6 +15,6 @@ public class Electrodomesticos extends AbstractProductService{
     
     @Override
     public void getDescripcion(){
-        System.out.println("Electrodomestico: "+nombre+" precio: $"+precio);
+        System.out.println("Electrodomestico: "+getNombre()+" precio: $"+getPrecio());
     }
 }

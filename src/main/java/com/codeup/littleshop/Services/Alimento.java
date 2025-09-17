@@ -16,7 +16,7 @@ public class Alimento extends AbstractProductService{
 
     @Override
     public void getDescripcion() {
-        System.out.println("Alimento: "+nombre+" Precio: $"+precio);
+        System.out.println("Alimento: "+getNombre()+" Precio: $"+getPrecio());
     }
     
 }
