@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author Coder
  */
 public class LittleShop {
-    
+
     public static boolean esEntero(String texto) {
         try {
             Integer.parseInt(texto);
@@ -26,12 +26,13 @@ public class LittleShop {
     }
 
     public static void main(String[] args) {
-        
-        ArrayList<Object> Productos = new ArrayList<>();
+
+        ArrayList<AbstractProductService> Productos = new ArrayList<>();
         HashMap<String, Integer> Stock = new HashMap<>();
         int opcion;
         String Producto;
         double Precio;
+        String StockProducto;
         try {
             do {
 
@@ -46,20 +47,63 @@ public class LittleShop {
                                                                       """));
                 switch (opcion) {
                     case 1:
-                        try{
-                            Producto = JOptionPane.showInputDialog("Ingresa el Nombre del producto: ");
-                            if(Producto.isEmpty() || Producto.isBlank() || Producto == null || esEntero(Producto)){
-                                JOptionPane.showMessageDialog(null, "Ingresa datos validos");
-                            }else{
-                                Precio = Double.parseDouble(JOptionPane.showInputDialog("Ingresa el Precio del Producto"));
+                        try {
+                            boolean estado = false;
+                            while (true) {
+                                if (estado == true) {
+                                    break;
+                                }
+
+                                Producto = JOptionPane.showInputDialog("Ingresa el Nombre del producto: ");
+                                if (Producto.isEmpty() || Producto.isBlank() || Producto == null || esEntero(Producto)) {
+                                    JOptionPane.showMessageDialog(null, "Ingresa datos validos");
+                                } else {
+                                    while (true) {
+                                        if (estado == true) {
+                                            break;
+                                        }
+
+                                        try {
+                                            Precio = Double.parseDouble(JOptionPane.showInputDialog("Ingresa el Precio del Producto"));
+                                            if (Precio < 0 || Precio == 0) {
+                                                JOptionPane.showMessageDialog(null, "Ingresa Datos validos (No numero negativos, ni valores nulos)");
+                                            } else {
+                                                try {
+                                                    while (true) {
+                                                        StockProducto = JOptionPane.showInputDialog(null, "Ingrsa el Stock del Producto");
+                                                        if (esEntero(StockProducto)) {
+                                                            Productos.add(new AbstractProductService(Producto,Precio) {
+                                                                @Override
+                                                                public void getDescripcion() {
+                                                                    throw new UnsupportedOperationException("Not supported yet.");
+                                                                }
+                                                            });
+                                                            JOptionPane.showMessageDialog(null, "Producto Creado Con Exito");
+                                                            estado = true;
+                                                            break;
+                                                        } else {
+                                                            JOptionPane.showMessageDialog(null, "Ingresa Datos Validos");
+                                                        }
+                                                    }
+                                                } catch (Exception e) {
+                                                    JOptionPane.showMessageDialog(null, "Ha Ocurrido un Error: " + e);
+                                                }
+                                            }
+                                        } catch (Exception err) {
+                                            JOptionPane.showMessageDialog(null, "Ingresa Solo numero");
+                                        }
+                                    }
+
+                                }
                             }
-                        }catch(Exception err){
-                            JOptionPane.showMessageDialog(null, "Ha Ocurrido un Error: "+ err);
+                        } catch (Exception err) {
+                            JOptionPane.showMessageDialog(null, "Ha Ocurrido un Error: " + err);
                         }
-                        
-                        JOptionPane.showMessageDialog(null, "Opcion 1");
                         break;
                     case 2:
+                        for(AbstractProductService p : Productos){
+                            JOptionPane.showMessageDialog(null, p);
+                        }
                         JOptionPane.showMessageDialog(null, "Opcion 2");
                         break;
                     case 3:
@@ -72,14 +116,14 @@ public class LittleShop {
                         JOptionPane.showMessageDialog(null, "Opcion 5");
                         break;
                     case 6:
+                        JOptionPane.showMessageDialog(null, "Gracias Por usar nuestros Servicios!");
                         System.exit(0);
                         break;
+                    default:
+                        JOptionPane.showMessageDialog(null, "La Opcion numero: " + opcion + " No corresponde a ninguna de las que esta disponible");
                 }
 
             } while (opcion != 6);
-            if (opcion == 6) {
-                JOptionPane.showMessageDialog(null, "Gracias Por usar nuestros Servicios!");
-            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + e);
         }
