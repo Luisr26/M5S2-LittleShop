@@ -40,8 +40,8 @@ public abstract class AbstractProductService {
 
     @Override
     public String toString() {
-        return "Producto: "
-                + "Nombre: " + nombre
+        return "Productos: "+"\n"
+                + "Nombre: " + nombre+"\n"
                 + "Precio: " + precio;
     }
 
